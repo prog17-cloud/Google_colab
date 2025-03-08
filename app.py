@@ -5,7 +5,7 @@ import streamlit as st
 import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
-import joblib  # Import joblib for loading the scaler
+import joblib  # Import joblib
 
 # Load the model and scaler
 filepath = 'Stock Predictions Model.keras'
@@ -42,7 +42,10 @@ data_test = pd.DataFrame(data.Close[int(len(data) * 0.80): len(data)])
 
 pas_100_days = data_train.tail(100)
 data_test = pd.concat([pas_100_days, data_test], ignore_index=True)
-data_test_scale = scaler.transform(data_test) #Use transform not fit_transform
+
+# Use the loaded scaler to transform both train and test data consistently
+data_train_scaled = scaler.transform(data_train) #Corrected line.
+data_test_scaled = scaler.transform(data_test)
 
 st.subheader('Price vs MA50')
 ma_50_days = data.Close.rolling(50).mean()
@@ -74,9 +77,9 @@ if model is not None and scaler is not None:
     x = []
     y = []
 
-    for i in range(100, data_test_scale.shape[0]):
-        x.append(data_test_scale[i - 100:i])
-        y.append(data_test_scale[i, 0])
+    for i in range(100, data_test_scaled.shape[0]):
+        x.append(data_test_scaled[i - 100:i])
+        y.append(data_test_scaled[i, 0])
 
     x, y = np.array(x), np.array(y)
 
@@ -90,8 +93,8 @@ if model is not None and scaler is not None:
 
         st.subheader('Original Price vs Predicted Price')
         fig4 = plt.figure(figsize=(8, 6))
-        plt.plot(y, 'g', label='Original Price') #fixed labels
-        plt.plot(predict, 'r', label='Predicted Price') #fixed labels
+        plt.plot(y, 'g', label='Original Price')
+        plt.plot(predict, 'r', label='Predicted Price')
         plt.xlabel('Time')
         plt.ylabel('Price')
         plt.legend()
