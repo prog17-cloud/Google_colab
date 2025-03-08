@@ -4,6 +4,7 @@ import yfinance as yf
 from keras.models import load_model
 import streamlit as st
 import matplotlib.pyplot as plt
+import tensorflow as tf
 
 model = tf.saved_model.load('Stock Predictions Model.keras')
 
