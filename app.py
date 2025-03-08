@@ -8,7 +8,7 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import load_model
 
-model = tf.keras.model.load_model('Stock Predictions Model.keras')
+model = tf.keras.models.load_model('Stock Predictions Model.keras')
 
 st.header('Stock Market Predictor')
 
