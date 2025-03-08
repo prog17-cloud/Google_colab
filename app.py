@@ -5,7 +5,18 @@ import tensorflow as tf
 import numpy as np
 
 # Load your model (adjust path if needed)
-model=tf.keras.models.load_model('Stock Predictions Model.keras')
+import tensorflow as tf
+import os
+
+filepath = "Stock Predictions Model.keras"  # Replace with the actual path
+if os.path.exists(filepath):
+    try:
+        model = tf.keras.models.load_model(filepath)
+        print("Model loaded successfully.")
+    except Exception as e:
+        print(f"Error loading model: {e}")
+else:
+    print(f"File not found: {filepath}")
   
 
 
