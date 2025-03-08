@@ -8,7 +8,23 @@ import tensorflow as tf
 from tensorflow import keras
 from keras.models import load_model
 
-model = tf.keras.models.load_model('Stock Predictions Model.keras')
+
+import os
+
+filepath = 'Stock Predictions Model.keras'
+print(f"Filepath: {filepath}") #print the filepath.
+if os.path.exists(filepath):
+    print("File exists.")
+    try:
+        model = tf.keras.models.load_model(filepath)
+        print("Model loaded successfully.")
+    except ValueError as e:
+        print(f"ValueError loading model: {e}")
+    except Exception as e:
+        print(f"Error loading model: {e}")
+else:
+    print("File does not exist.")
+    print(f"Current working directory: {os.getcwd()}")
 
 st.header('Stock Market Predictor')
 
