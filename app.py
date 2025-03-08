@@ -5,8 +5,8 @@ import tensorflow as tf
 import numpy as np
 
 # Load your model (adjust path if needed)
-model=tf.keras.models.load_model(
-    'Stock Predictions Model.keras')
+model=tf.keras.models.load_model('Stock Predictions Model.keras')
+  
 
 
 st.title('Stock Prediction App')
