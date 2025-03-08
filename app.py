@@ -1,20 +1,31 @@
 import streamlit as st
-import tensorflow as tf
+
 import numpy as np
-import os
+
 
 # Load the model
-filepath = "Stock Predictions Model.keras"
-if os.path.exists(filepath):
+import tensorflow as tf
+import os
+
+filename = 'Stock Predictions Model.keras'
+
+# Check in the current directory
+if os.path.exists(filename):
+    filepath = filename
+else:
+    #Example of checking a subdirectory called models.
+    filepath = os.path.join("models", filename)
+    if not os.path.exists(filepath):
+      filepath = None
+
+if filepath:
     try:
         model = tf.keras.models.load_model(filepath)
         print("Model loaded successfully.")
     except Exception as e:
-        st.error(f"Error loading model: {e}")
-        st.stop()  # Stop execution if model fails to load
+        print(f"Error loading model: {e}")
 else:
-    st.error(f"File not found: {filepath}")
-    st.stop()
+    print(f"File not found: {filename}")
 
 st.title('Stock Prediction App')
 
